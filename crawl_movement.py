@@ -1,6 +1,6 @@
 from selenium import webdriver
 import pandas as pd
-import web
+import web, database
 import time
 option = webdriver.ChromeOptions()
 option.add_argument("-incognito")
@@ -58,7 +58,7 @@ print("DATA IS DOWNLOADED SUCCESSFULLY")
 time.sleep(1)
 print("Processing...")
 time.sleep(3)
-
+database.show_data()
 
 
 
