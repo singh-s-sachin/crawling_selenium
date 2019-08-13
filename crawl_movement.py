@@ -59,15 +59,3 @@ time.sleep(1)
 print("Processing...")
 time.sleep(3)
 database.show_data()
-
-
-
-
-
-
-
-
-
-#invisible=ce ae af bn ah az ay bc an hr hs ht hu et d9 eu ev cr cs b4 ew ex ey ez f0 f1 f2 cc c9 ca cb hb kl
-
-#visible=ce ae af bn ah az ay bc an hr hs ht hu et d9 eu ev cr cs b4 ew ex ey ez f0 f1 f2 kr hb f5 f6 f7 cc c9 ca cb
