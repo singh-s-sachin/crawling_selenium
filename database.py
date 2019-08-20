@@ -23,8 +23,10 @@ def show_data():
         upper=[value for key,value in upper.items()]
         lower=df["Range - Upper Bound Travel Time (Seconds)"]
         lower=[value for key,value in lower.items()]
+        date=df["Date Range"]
+        date=[value for key,value in date.items()]
         for i in range(len(o)):
-            post={"origin_id":oid[i],"origin":o[i],"destination_id":did[i],"destination":d[i],"mean_travel_time":mean[i],"max_time":upper[i],"min_time":lower[i]}
+            post={"origin_id":oid[i],"origin":o[i],"destination_id":did[i],"destination":d[i],"mean_travel_time":mean[i],"max_time":upper[i],"min_time":lower[i],"date_range":date}
             k=db.rides.insert(post)
             print(k)
         print("ALL DATA STORED IN LOCAL DATABASE")
