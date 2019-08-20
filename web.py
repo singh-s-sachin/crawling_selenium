@@ -6,6 +6,8 @@ d=open('yourjson.json','r+')
 prev=json.loads(prev1.read())
 place=prev["count"]
 print(place)
+if(place==19):
+	place+=1
 if(place==35):
     place=0
 while(place<35):
@@ -18,4 +20,3 @@ while(place<35):
     d.seek(0)
     json.dump({}, d)
     d.truncate()
-    
