@@ -26,7 +26,7 @@ def show_data():
         date=df["Date Range"]
         date=[value for key,value in date.items()]
         for i in range(len(o)):
-            post={"origin_id":oid[i],"origin":o[i],"destination_id":did[i],"destination":d[i],"mean_travel_time":mean[i],"max_time":upper[i],"min_time":lower[i],"date_range":date}
+            post={"origin_id":oid[i],"origin":o[i],"destination_id":did[i],"destination":d[i],"mean_travel_time":mean[i],"max_time":upper[i],"min_time":lower[i],"date_range":date[i]}
             k=db.rides.insert(post)
             print(k)
         print("ALL DATA STORED IN LOCAL DATABASE")
