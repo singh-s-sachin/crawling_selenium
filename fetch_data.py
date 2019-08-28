@@ -16,19 +16,20 @@ def get_data(loc):
         db=client.uber
         data=db[loc].find()
         print(data.count(),"datas")
+        lst=[]
         print("Processing....\nPlease wait for few seconds")
         l=[["SNo.","Origin id","Destination id","Mean time","Standard deviation Time","Geometric mean time","Standard geometric mean time"]]
         with open(file_name, 'w') as writeFile:
             writer = csv.writer(writeFile)
             writer.writerows(l)
-            lst=[]
             print("Exporting your request. Have patience.")
             print("This may take upto several minutes.")
             for i in range(data.count()):
                 temp=data[i]
                 l=[i+1,temp["origin_id"],temp["destination_id"],temp["mean_travel_time"],temp["standard_deviation_time"],temp["geometric_mean_time"],temp["geometric_standard_mean_time"]]
                 lst.append(l)
-                print(i,end=" ")
+                if i%1234==0:
+                    print(i,"/",data.count())
             print("Writing your data")
             writer.writerows(lst)
             print(i,"/",data.count())
@@ -37,13 +38,5 @@ def get_data(loc):
         writeFile.close()
     except:
         print("Something went wrong")
-        with open(file_name, 'w') as wFile:
-            writer = csv.writer(wFile)
-            writer.writerows(l)
-            print("Writing your data")
-            writer.writerows(lst)
-            print(i,"/",data.count())
-            putdata(loc)
-            print("Data saved in your download folder : ",file_name)
 loc=input()
 get_data(loc)
