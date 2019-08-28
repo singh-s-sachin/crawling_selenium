@@ -1,32 +1,33 @@
 import pandas as pd
 import json
+import os
 from pymongo import MongoClient
-def show_data():
-    data = pd.read_csv("/home/sachin/Downloads/Travel_Times.csv") 
+def show_data(file,file1,location):
+    file=str("/home/sachin/Downloads/"+file)
+    if(not os.path.exists(file)):
+        file=str("/home/sachin/Downloads/"+file1)
+    print(file)
+    data = pd.read_csv(file) 
     data.to_json('yourjson.json')
     jdf = open('yourjson.json').read()
     df= json.loads(jdf)
     try:
         client = MongoClient("localhost",27017)
         db=client.uber
-        oid=df["Origin Movement ID"]
+        oid=df["sourceid"]
         oid=[value for key,value in oid.items()]
-        o=df["Origin Display Name"]
-        o=[value for key,value in o.items()]
-        did=df["Destination Movement ID"]
+        did=df["dstid"]
         did=[value for key,value in did.items()]
-        d=df["Destination Display Name"]
-        d=[value for key,value in d.items()]
-        mean=df["Mean Travel Time (Seconds)"]
+        mean=df["mean_travel_time"]
         mean=[value for key,value in mean.items()]
-        upper=df["Range - Lower Bound Travel Time (Seconds)"]
-        upper=[value for key,value in upper.items()]
-        lower=df["Range - Upper Bound Travel Time (Seconds)"]
-        lower=[value for key,value in lower.items()]
-        date=df["Date Range"]
-        date=[value for key,value in date.items()]
-        for i in range(len(o)):
-            post={"origin_id":oid[i],"origin":o[i],"destination_id":did[i],"destination":d[i],"mean_travel_time":mean[i],"max_time":upper[i],"min_time":lower[i],"date_range":date[i]}
+        standard=df["standard_deviation_travel_time"]
+        standard=[value for key,value in standard.items()]
+        geometric=df["geometric_mean_travel_time"]
+        geometric=[value for key,value in geometric.items()]
+        geometric_standard=df["geometric_standard_deviation_travel_time"]
+        geometric_standard=[value for key,value in geometric_standard.items()]
+        for i in range(len(oid)):
+            post={"origin_id":oid[i],"destination_id":did[i],"mean_travel_time":mean[i],"standard_deviation_time":standard[i],"geometric_mean_time":geometric[i],"geometric_standard_mean_time":geometric_standard[i],"city":location}
             k=db.rides.insert(post)
             print(k)
         print("ALL DATA STORED IN LOCAL DATABASE")
