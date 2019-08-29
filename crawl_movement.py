@@ -28,9 +28,20 @@ def crwal(page,location):
     #zone[2].click()
     zone=driver.find_elements_by_xpath("//span[@class='ff cl ft fu fv ai ao fw fg gl fx gm br']")
     zone=zone[1].text
-    zone.replace()
+    l=zone.split()
+    zone=""
+    for i in l:
+            zone+=i
+    if(zone.lower()=="travelzones"):
+        zone="tz"
     if zone[-1]=='s':
         zone=zone[:-1]
+    if zone.lower()=="hexcluster":
+        zone="uberboundaries"
+    if zone.lower()=="gautengprovincezone":
+        zone="gpzones"
+    if zone.lower()=="middlesuperoutputarea":
+        zone="msoa"
     print(zone)
     downloadbtn=driver.find_element_by_xpath("//button[@class='d9 ao b1 b2 b3 b4 b5 b6 b7 b8 b9 ba bb bc bd be bf bg as da at db hi hj hk hl dg dh di dj dk hm bu bv bw ca hh ci hn ho hp']")
     downloadbtn.click()
@@ -40,8 +51,8 @@ def crwal(page,location):
     table=driver.find_elements_by_xpath("//table[@class='table table--striped table--small flush--bottom']/tbody/tr/td")
     if len(table)!=0:
         print(len(table))
-        change=table[0].find_element_by_xpath("//a/small")
-        change.click()
+        change=table[0].find_elements_by_xpath("//a/small")
+        change[4].click()
         text_area = driver.find_element_by_id('firstName')
         text_area.send_keys("Iuahuiwfiawnxui")
         text_area = driver.find_element_by_id('lastName')
@@ -60,8 +71,8 @@ def crwal(page,location):
         change.click()
         #close_button=driver.find_element_by_xpath("//button[@aria-label='Close']")
         #close_button.click()
-        file=str(location)+"-"+zone.lower()+"-2019-1-All-HourlyAggregate.csv"
-        file1=str(location)+"-"+zone.lower()+"s-2019-1-All-HourlyAggregate.csv"
+        file=str(location)+"-"+zone.lower()+"-2019-1-All-MonthlyAggregate.csv"
+        file1=str(location)+"-"+zone.lower()+"s-2019-1-All-MonthlyAggregate.csv"
         print("Downloading")
         #time.sleep(30)
         download_wait(file,file1)
